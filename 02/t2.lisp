@@ -19,8 +19,8 @@
                (funcall
                 (cond ((= op 1) '+) ((= op 2) '*))
                 v1 v2)))
-    (format t "~a~%" (elt prg-data 0))))
+    (elt prg-data 0)))
 
-(defvar *argv-1* (second sb-ext:*posix-argv*))
-(intcode-calc (parse-integer (subseq *argv-1* 0 2))
-              (parse-integer (subseq *argv-1* 2)))
+(let ((noun (parse-integer (subseq (second sb-ext:*posix-argv*) 0 2)))
+      (verb (parse-integer (subseq (second sb-ext:*posix-argv*) 2))))
+  (format t "~a~%" (intcode-calc noun verb)))

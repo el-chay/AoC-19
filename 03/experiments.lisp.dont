@@ -1,0 +1,40 @@
+;;; While working on t1:
+
+;; The current code is a macro replacing the following:
+(set-macro-character
+ #\R
+ (lambda (s c)
+   (declare (ignore s c))
+   (add-x (read))
+   (values)))
+
+(set-macro-character
+ #\L
+ (lambda (s c)
+   (declare (ignore s c))
+   (add-x (- (read)))
+   (values)))
+
+(set-macro-character
+ #\U
+ (lambda (s c)
+   (declare (ignore s c))
+   (add-y (read))
+   (values)))
+
+(set-macro-character
+ #\D
+ (lambda (s c)
+   (declare (ignore s c))
+   (add-y (- (read)))
+   (values)))
+
+;; I wanted to do:
+(loop for (move action)
+        in '((#\R (add-x (read)))
+             (#\L (add-x (- (read))))
+             (#\U (add-y (read)))
+             (#\D (add-y (- (read)))))
+      do
+         (set-move-char move action))
+;; But it doesn't work
